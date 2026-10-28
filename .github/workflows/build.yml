@@ -19,17 +19,22 @@ jobs:
     - name: Install dependencies
       run: |
         brew install cmake ninja
-        pip install -r requirements.txt
+        pip install pycryptodome standard-imghdr
 
-    - name: Download Game and Keys
+    - name: Download Files and Keys
       run: |
-        # Вставьте ваши прямые ссылки ниже
-        curl -L -o prod.keys "https://drive.usercontent.google.com/download?id=164d88LgBETdfcJ6fQdVZZkZIItbxaqQ-&export=download&authuser=0"
-        curl -L -o mario.nsp "https://drive.usercontent.google.com/download?id=1s2ju2-ehdP28MkCWe02uyxEhkZCnn7SP&export=download&authuser=0&confirm=t&uuid=5ec464a5-51bb-4fdf-bd4e-02f32f810765&at=AMrWOn3W8fwOh8D1WzG5W_J3krGm%3A1793185917446"
+        # Создаем папку для игры
+        mkdir game_files
+        
+        # Скачиваем ключи в корень, а распакованные файлы .nsp — сразу в созданную папку
+        curl -L -o prod.keys "ССЫЛКА_НА_ВАШ_PROD_KEYS"
+        curl -L -o game_files/mario_base.nsp "ССЫЛКА_НА_РАСПАКОВАННУЮ_БАЗУ_NSP"
+        curl -L -o game_files/mario_update.nsp "ССЫЛКА_НА_РАСПАКОВАННОЕ_ОБНОВЛЕНИЕ_NSP"
 
     - name: Run nxnative compilation
       run: |
-        python3 build.py --game mario.nsp
+        # Запускаем компиляцию сразу из папки с файлами .nsp
+        python3 build.py --game game_files/
 
     - name: Upload IPA Artifact
       uses: actions/upload-artifact@v4
