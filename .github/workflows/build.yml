@@ -24,8 +24,8 @@ jobs:
     - name: Download Game and Keys
       run: |
         # Вставьте ваши прямые ссылки ниже
-        curl -L -o prod.keys "https://drive.google.com/file/d/164d88LgBETdfcJ6fQdVZZkZIItbxaqQ-/view?usp=drive_link"
-        curl -L -o mario.nsp "https://drive.google.com/file/d/1s2ju2-ehdP28MkCWe02uyxEhkZCnn7SP/view?usp=drive_link"
+        curl -L -o prod.keys "https://drive.usercontent.google.com/download?id=164d88LgBETdfcJ6fQdVZZkZIItbxaqQ-&export=download&authuser=0"
+        curl -L -o mario.nsp "https://drive.usercontent.google.com/download?id=1s2ju2-ehdP28MkCWe02uyxEhkZCnn7SP&export=download&authuser=0&confirm=t&uuid=5ec464a5-51bb-4fdf-bd4e-02f32f810765&at=AMrWOn3W8fwOh8D1WzG5W_J3krGm%3A1793185917446"
 
     - name: Run nxnative compilation
       run: |
