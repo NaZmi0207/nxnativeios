@@ -1,0 +1,38 @@
+name: Build Mario Odyssey iOS (.ipa)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        brew install cmake ninja
+        pip install -r requirements.txt
+
+    - name: Download Game and Keys
+      run: |
+        # Вставьте ваши прямые ссылки ниже
+        curl -L -o prod.keys "https://drive.google.com/file/d/164d88LgBETdfcJ6fQdVZZkZIItbxaqQ-/view?usp=drive_link"
+        curl -L -o mario.nsp "https://drive.google.com/file/d/1s2ju2-ehdP28MkCWe02uyxEhkZCnn7SP/view?usp=drive_link"
+
+    - name: Run nxnative compilation
+      run: |
+        python3 build.py --game mario.nsp
+
+    - name: Upload IPA Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Mario-Odyssey-iOS-IPA
+        path: ./*.ipa
